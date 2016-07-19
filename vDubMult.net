@@ -1,0 +1,95 @@
+* 
+
+*------------- Models -------------------------
+.include /usr/share/oregano/models/1N4148.model
+*----------------------------------------------
+.model M_D1N1418 d(IS=0.1PA, RS=16 CJO=2PF TT=12N BV=100 IBV=0.1PA) 
+
+*******************************************************************
+* SMALL SIGNAL SCHOTTKY DIODE 10V....40V
+*******************************************************************
+
+*******************************************************************
+* Model name       : BAT60JFILM
+* Description      : Small Signal Schottky Diode
+* Package type     : SOD-323
+*******************************************************************
+.MODEL BAT60JFILM D(IS=20.053E-9 N=.93972 RS=.18722 IKF=614.92 CJO=101.96E-12
++ M=.39267 VJ=.3905 ISR=650.19E-9 NR=4.9950 EG=.69 XTI=2 FC=0.5 TT=0)
+*$
+
+*******************************************************************
+* Model name       : BAS69KFILM
+* Description      : Small Signal Schottky Diode
+* Package type     : SOD-523
+*******************************************************************
+.MODEL BAS69KFILM D(IS=346.55E-15 N=.6026 RS=10.622 IKF=66.178 CJO=619.57E-15
++ M=.5418 VJ=9.9900 ISR=20.602E-9 NR=4.9950 EG=.69 XTI=2 FC=0.5 TT=0)
+*$
+
+*******************************************************************
+* Model name       : BAS69WFILM
+* Description      : Small Signal Schottky Diode
+* Package type     : SOT-323
+*******************************************************************
+*model BAS69WFILM 	anode
+*		    		| cathode
+*		    		| |
+.subckt BAS69WFILM	A K
+d1 A K dx
+.model dx	D(IS=346.55E-15 N=.6026 RS=10.622 IKF=66.178 CJO=619.57E-15 M=.5418
++			VJ=9.9900 ISR=20.602E-9 NR=4.9950 EG=.69 XTI=2 FC=0.5 TT=0)
+
+*	STMicroelectronics	case=SOT-323   Delivery= Tape&reel
+.ends
+
+.model BAR42 D(
++ IS=1.13853e-08 ISR=3.26235e-08 RS=0.99517
++ CJO=9.26191e-12 VJ=1.6 M=0.411631 BV=33 EG=0.7 ) 
+
+
+*D1 1 0 M_D1N1418
+*D2 2 1 M_D1N1418
+*D1 1 0 BAS69KFILM
+*D2 2 1 BAS69KFILM
+
+D11 a1 V1 BAR42
+D12 b1 V2 BAR42
+D13 c1 V3 BAR42
+D14 d1 V4 BAR42
+
+D21 0  a1 BAR42
+D22 V1 b1 BAR42
+D23 V2 c1 BAR42
+D24 V3 d1 BAR42
+
+V_V1 Vs 0 dc 0.0 ac 0 sin(0.0 1.0 100MEG 0 0) 
+Rs Vs Vin 10
+*Cin Vin1 Vin 3p
+*Lin Vin  0  10n
+Rl V4 0 1MEG
+
+C11 Vin a1 500p IC=0 
+C12 Vin b1 500p IC=0
+C13 Vin c1 500p IC=0
+C14 Vin d1 500p IC=0
+
+C21 V1  0  500p IC=0 
+C22 V2  0  500p IC=0
+C23 V3  0  500p IC=0
+C24 V4  0  500p IC=0
+
+*----------------------------------------------
+
+.print tran v(Vin) v(v1) v(v2) v(v3) v(v4) i(C11) i(C21) i(C12) i(C22) i(D11) i(D21) i(D12) i(D22) V(Vin) I(Rs)
+
+*gnucap
+*.tran 50p 20u 19u  > vDubMult.out
+.tran 5n 15u 0  > vDubMult.out
+
+*.tran 1u 200u 0 *ngspice
+
+
+.op
+
+.END
