@@ -1,7 +1,7 @@
 * 
 
 *------------- Models -------------------------
-.include /usr/share/oregano/models/1N4148.model
+*.include /usr/share/oregano/models/1N4148.model
 *----------------------------------------------
 .model M_D1N1418 d(IS=0.1PA, RS=16 CJO=2PF TT=12N BV=100 IBV=0.1PA) 
 

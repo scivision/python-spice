@@ -1,7 +1,6 @@
 function [data,header] =runMos()
- clc, close all
-
-gnu = true;
+ 
+gnucap = true;
 
 fn = 'mos.net';
 
@@ -10,12 +9,12 @@ fn = 'mos.net';
 fOut = [fDir,stem,'.out'];
 
 
-if gnu
-cmd = ['gnucap -b ',fn]
+if gnucap
+ cmd = ['gnucap -b ',fn];
 else
- cmd = ['ngspice -b ',fn,'> ',fOut]
+ cmd = ['ngspice -b ',fn,'> ',fOut];
 end
-err = system(cmd)
+err = system(cmd);
 
 if err, error('simulator error'), end
 
@@ -35,7 +34,7 @@ col = ['b','g','r','b','g','r','k'];
 figure(2)
 subplot(2,1,1)
 for i = 2:3
-plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}),hold on
+plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}{1}),hold on
 end
 grid on
 legend('show','location','southwest')
@@ -45,7 +44,7 @@ ylabel('Node Voltage [V]'),xlabel('Time [sec]')
 %{
 subplot(2,1,2)
 for i = 5:8
-plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}),hold on
+plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}{1}),hold on
 end
 grid on
 legend('show','location','southwest')
@@ -56,7 +55,7 @@ title('Basic Voltage Doubler Currents: Diode ')
 
 
 if ~nargout
-    data = [];
+  clear
 end
 
 end

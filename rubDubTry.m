@@ -1,8 +1,6 @@
 function [data,header] =runDubMult()
- clc
- close all
 
-gnu = true;
+gnucap = true;
 
 fn = 'vDubTry.net';
 
@@ -11,12 +9,13 @@ fn = 'vDubTry.net';
 fOut = [fDir,stem,'.out'];
 
 
-if gnu
-cmd = ['gnucap -b ',fn]
+if gnucap
+ cmd = ['gnucap -b ',fn];
 else
- cmd = ['ngspice -b ',fn,'> ',fOut]
+ cmd = ['ngspice -b ',fn,'> ',fOut];
 end
-err = system(cmd)
+disp(cmd)
+err = system(cmd);
 
 
 
@@ -49,7 +48,7 @@ title('Basic Voltage Doubler: Diode ')
 
 
 if ~nargout
-    data = [];
+    clear
 end
 
 end

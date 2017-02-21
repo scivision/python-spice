@@ -1,7 +1,8 @@
-function [data,header] =runDub()
- clc, close all
+% apt install gnucap ngspice
 
-gnu = true;
+function [data,header] =runDub()
+
+gnucap = true;
 
 fn = 'vDub.net';
 
@@ -10,12 +11,13 @@ fn = 'vDub.net';
 fOut = [fDir,stem,'.out'];
 
 
-if gnu
-cmd = ['gnucap -b ',fn]
+if gnucap
+ cmd = ['gnucap -b ',fn];
 else
- cmd = ['ngspice -b ',fn,'> ',fOut]
+ cmd = ['ngspice -b ',fn,'> ',fOut];
 end
-err = system(cmd)
+disp(cmd)
+err = system(cmd);
 
 
 
@@ -34,7 +36,8 @@ col = ['b','g','r','b','g','r','k'];
 figure(2)
 subplot(2,1,1)
 for i = 2:4
-plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}),hold on
+plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}{1})
+hold on
 end
 grid on
 legend('show','location','southwest')
@@ -43,7 +46,8 @@ title('Basic Voltage Doubler Voltages: Diode ')
 
 subplot(2,1,2)
 for i = 5:8
-plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}),hold on
+plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}{1})
+hold on
 end
 grid on
 legend('show','location','southwest')
@@ -54,7 +58,7 @@ title('Basic Voltage Doubler Currents: Diode ')
 
 
 if ~nargout
-    data = [];
+    clear
 end
 
 end

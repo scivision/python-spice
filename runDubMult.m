@@ -1,8 +1,6 @@
 function [Z,data,header] =runDubMult()
- clc
- close all
-
-gnu = true;
+ 
+gnucap = true;
 
 fn = 'vDubMult.net';
 
@@ -11,12 +9,12 @@ fn = 'vDubMult.net';
 fOut = [fDir,stem,'.out'];
 
 
-if gnu
-cmd = ['gnucap -b ',fn]
+if gnucap
+cmd = ['gnucap -b ',fn];
 else
- cmd = ['ngspice -b ',fn,'> ',fOut]
+ cmd = ['ngspice -b ',fn,'> ',fOut];
 end
-err = system(cmd)
+err = system(cmd);
 
 
 
@@ -35,7 +33,7 @@ col = repmat(['b','g','r','m','k'],1,3);
 figure(2)
 subplot(2,1,1)
 for i = 2:6
-plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}),hold on
+plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}{1}),hold on
 end
 grid on
 legend('show','location','southwest')
@@ -44,7 +42,7 @@ title('Basic Voltage Doubler Voltages: Diode ')
 
 subplot(2,1,2)
 for i = 7:14
-plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}),hold on
+plot(data(:,1),data(:,i),'color',col(i-1),'displayname',header{i}{1}),hold on
 end
 grid on
 legend('show','location','southwest')
