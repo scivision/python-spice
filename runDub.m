@@ -2,8 +2,6 @@
 
 function [data,header] =runDub()
 
-gnucap = true;
-
 fn = 'vDub.net';
 
 [fDir,stem,ext] = fileparts(fn);
@@ -11,25 +9,22 @@ fn = 'vDub.net';
 fOut = [fDir,stem,'.out'];
 
 
-if gnucap
- cmd = ['gnucap -b ',fn];
-else
- cmd = ['ngspice -b ',fn,'> ',fOut];
+try
+  err = system(['gnucap -b ',fn])
+catch
+  err = system(['ngspice -b ',fn,'> ',fOut])
 end
-disp(cmd)
-err = system(cmd);
 
 
-
+%% parse output
 fid = fopen(fOut);
 header = textscan(fid,'%s %s %s %s %s %s %s %s',1);
 data = textscan(fid,'%f %f %f %f %f %f %f %f','headerlines',1,'delimiter',' ','multipledelimsasone',true,'collectoutput',false);
-
-
+fclose(fid);
 
 data=cell2mat(data);
 
-fclose(fid);
+
 
 col = ['b','g','r','b','g','r','k'];
 

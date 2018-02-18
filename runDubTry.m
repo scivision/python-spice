@@ -1,7 +1,5 @@
 function [data,header] =runDubMult()
 
-gnucap = true;
-
 fn = 'vDubTry.net';
 
 [fDir,stem,ext] = fileparts(fn);
@@ -9,27 +7,22 @@ fn = 'vDubTry.net';
 fOut = [fDir,stem,'.out'];
 
 
-if gnucap
- cmd = ['gnucap -b ',fn];
-else
- cmd = ['ngspice -b ',fn,'> ',fOut];
+try
+  err = system(['gnucap -b ',fn])
+catch
+  err = system(['ngspice -b ',fn,'> ',fOut])
 end
-disp(cmd)
-err = system(cmd);
 
 
-
+%% parse output
 fid = fopen(fOut);
 header = textscan(fid,repmat('%s',1,5),1);
 data = textscan(fid,repmat('%f',1,5),'headerlines',1,'delimiter',' ','multipledelimsasone',true,'collectoutput',false);
-
-
+fclose(fid);
 
 data=cell2mat(data);
 
-fclose(fid);
-
-%compute impedance
+%% compute impedance
 Z = (data(:,2) + 1j*data(:,3)) ./ (data(:,4) + 1j*data(:,5));
 
 col = repmat(['b','g','r','m','k'],1,3);

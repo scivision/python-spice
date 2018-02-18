@@ -1,0 +1,50 @@
+* simple LED voltage drop issue
+
+V1 Vs 0 DC 12.15
+
+Rw1 Vs 1 0.0126
+Rw2 1 2 0.0126
+Rw3 2 3 0.0126
+Rw4 3 4 0.0126
+Rw5 4 5 0.0126
+Rw6 5 6 0.0126
+Rw7 6 7 0.0126
+Rw8 7 8 0.0126
+
+Rw9 8 9 0.0126
+Rw10 9 10 0.0126
+Rw11 10 11 0.0126
+Rw12 11 12 0.0126
+
+* Cree XLAMP XHP50 12V White LED
+* Model valid for 350mA to 1500mA & Tj=25C
+.MODEL XHP50 D
++ IS=2.87419E-15
++ N=13.57447
++ RS=0.59063
++ XTI=417.27006
++ EG=2.5000
+
+D1 1 0 XHP50
+D2 2 0 XHP50
+D3 3 0 XHP50
+D4 4 0 XHP50
+D5 5 0 XHP50
+D6 6 0 XHP50
+D7 7 0 XHP50
+D8 8 0 XHP50
+D9 9 0 XHP50
+D10 10 0 XHP50
+D11 11 0 XHP50
+D12 12 0 XHP50
+*----------------------------------------------
+ 
+.print dc v(Vs) i(Rw1) v(1) i(D1) v(6) i(D6) v(12) i(D12)
+
+*gnucap
+.dc 12 12 trace off > ledDrop.out 
+
+*ngspice
+*.dc 12
+
+.END
