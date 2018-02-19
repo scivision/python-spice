@@ -1,4 +1,4 @@
-# Power Harvesting simulation
+# Python - SPICE interface and plotting
 
 GNUcap / NGspice voltage multiplier sim.
 
@@ -12,10 +12,16 @@ instead of this approach.
 
 ## Prereqs
 
-    apt install gnucap ngspice octave
+    apt install gnucap ngspice
+
+## Usage
+Simulate no-driver LED problems due to wire voltage drop, using `ledDrop.net` and StringIO to avoid output file mess.
+
+    python ledDrop.py
 
 
-## Programs
+
+### Other programs
 These programs run from GNU Octave or Matlab.
 
 * `runDub.m` run and plot basic voltage doubler current input and voltage output vs. time
