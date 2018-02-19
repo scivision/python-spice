@@ -8,9 +8,9 @@ fOut = [fDir,stem,'.out'];
 
 
 try
-  err = system(['gnucap -b ',fn])
+  err = system(['gnucap -b ',fn]);
 catch
-  err = system(['ngspice -b ',fn,'> ',fOut])
+  err = system(['ngspice -b ',fn,'> ',fOut]);
 end
 
 

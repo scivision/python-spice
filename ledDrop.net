@@ -1,4 +1,4 @@
-* simple LED voltage drop issue
+.title LED voltage drop
 
 V1 Vs 0 DC 12.15
 
@@ -38,11 +38,11 @@ D10 10 0 XHP50
 D11 11 0 XHP50
 D12 12 0 XHP50
 *----------------------------------------------
- 
+
 .print dc v(Vs) i(Rw1) v(1) i(D1) v(6) i(D6) v(12) i(D12)
 
 *gnucap
-.dc 12 12 trace off > ledDrop.out 
+.dc 12 12 trace off
 
 *ngspice
 *.dc 12
