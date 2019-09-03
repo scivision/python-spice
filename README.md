@@ -3,7 +3,7 @@
 GNUcap / NGspice voltage multiplier sim.
 
 Used for my Ph.D. qualifying exam, and a follow-on to my 
-[harmonic radar tag improvements](https://www.scivision.co/harmonic-radar).
+[harmonic radar tag improvements](https://www.scivision.dev/harmonic-radar).
 
 
 NOTE: Consider using 
